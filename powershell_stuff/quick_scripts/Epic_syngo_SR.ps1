@@ -56,7 +56,7 @@ $CurrentDate = Get-Date
 $DatetoDelete = $CurrentDate.AddDays($Daysback)
 $DatetoDeleteError = $CurrentDate.AddDays($DaysbackError)
 $DatetoDeleteFinal = $CurrentDate.AddDays($DaysbackFinal)
-$EmailAList = "msavoy@jhmc.org","ANCSYS@jhmc.org"
+$EmailAList = " "
 
 
 LogWrite "Checking for files to process"

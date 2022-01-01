@@ -8,7 +8,7 @@ Param(
 
 $password_object = ConvertTo-SecureString $password -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential ($user_name, $password_object)
-$computer_list = Get-Content "C:\temp\devices.txt"
+$computers = Get-Content $computer_list
 
 Function change_policy{
     Param ($cred, $comp)
@@ -25,6 +25,6 @@ Function change_policy{
     }
     
 
-ForEach ($comp in $computer_list ) {
+ForEach ($comp in $computers ) {
     change_policy $cred, $comp
 }

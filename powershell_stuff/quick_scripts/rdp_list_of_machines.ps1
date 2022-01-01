@@ -1,10 +1,11 @@
-$HostN = get-content 'C:\Temp\scripts\input\servers.txt'
+Param(
+    [Parameter(Mandatory=$True)]
+    [string]$host_list, $user, [string]$password
+)
 
-Foreach ($HostNe in $HostN){
-    echo "$HostNe"
-    $Server="$HostNe"
-    $User="jhmc\msavoy"
-    $Password=""
-    cmdkey /generic:TERMSRV/$Server /user:$User /pass:$Password
-    mstsc /v:$Server
+Foreach ($host in $host_list){
+    echo $host
+    $server = $host
+    cmdkey /generic:TERMSRV/$server /user:$user /pass:$password
+    mstsc /v:$server
 }

@@ -1,4 +1,3 @@
-from util import convert_array_to_dcm_slice
 from util import convert_image_to_dicom
 
 import logging
@@ -15,7 +14,7 @@ from pydicom.dataset import Dataset, FileMetaDataset
 from pydicom.sequence import Sequence
 
 log = logging.getLogger(__name__)
-directory = r'C:\archive\VinBigData\train'
+directory = os.getcwd()
 listOfFiles = list()
 
 

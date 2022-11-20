@@ -1,0 +1,93 @@
+s3:
+  access_key: 'AWS_ACCESS_KEY_ID'
+  secret_key: 'AWS_SECRET_ACCESS_KEY'
+  src_endpoint_url: 'https://s3.amazonaws.com'
+  src_bucket: 'imaging-in'
+  trg_endpoint_url: 'https://s3.amazonaws.com'
+  trg_bucket: 'imaging-dest'
+  final_product_bucket: 'imaging-final-product'
+
+# xml root level for each data section
+xml_root:
+  MeasurementList:
+    root: 3
+    level:
+  GeneralStudyRevision:
+    root: 2
+    level: 2
+  GeneralSeriesRevision:
+    root: 2
+    level: 3
+  PatientRevision:
+    root: 2
+    level: 1
+
+# Logging configuration
+logging:
+  version: 1
+  formatters:
+    extractor:
+      format: "MeasurementExtractor - %(asctime)s - %(levelname)s - %(message)s"
+  handlers:
+    console:
+      class: logging.StreamHandler
+      formatter: extractor
+      level: DEBUG
+      stream: ext://sys.stdout
+    file:
+      level: DEBUG
+      mode: a
+      class : logging.handlers.RotatingFileHandler
+      formatter: extractor
+      filename: MeasurementExtractor.log
+      maxBytes: 1024
+      backupCount: 3
+  root:
+    level: DEBUG
+    handlers: [ file ]
+
+# configuration specific to the source
+source_csv:
+  src_columns: ['PatientID','StudyDate','Finding','Img',
+  'Volume', 'Area', 'Shape Compactness', 'Min','Max','Mean',
+  'SDev','d1', 'd2','d1xd2','Avg.Diameter']
+  src_col_PatientID: 'patientID'
+  src_col_StudyDate: 'StudyDate'
+  src_col_Finding: '"Finding"'
+  src_col_Img: 'Img'
+  src_col_Volume: 'Volume'
+  src_col_Shape: 'Shape Compactness'
+  src_col_Min: 'Min'
+  src_col_Max: 'Max'
+  src_col_Mean: 'Mean'
+  src_col_SDev: 'SDev'
+  src_col_d1: 'd1 (RECIST)'
+  src_col_d2: 'd2'
+  src_col_d1xd2: 'd1xd2'
+  src_col_Avg_Diameter:
+
+
+# configuration specific to the source
+source_xml:
+  src_columns: ['Patient_ID_on_xml_tag', 'Patient_name_on_xml_tag',
+       'Patient_name_on_file', 'finding_number', 'study_date_dicom_format',
+       'Report_Date', 'radiologist_comment', 'organ', 'nodule_type',
+       'lung_laterility', 'lung_quandrant', 'finding_type', 'group_id',
+       'series_instance_uid', 'series_description', 'modality',
+       'study_date_measurement', 'study_instance_uid', 'study_id', 'series_id',
+       'series_number_measurement_level', 'series_number', 'volume', 'area',
+       'shape_compactness', 'min', 'max', 'mean', 'sdev', 'd1', 'd2', 'd1xd2', 'avg_diameter']
+  src_format: 'csv'
+
+# configuration for the final measure file
+final_target_csv:
+  src_columns: ['patient_id_on_xml_tag', 'patient_name_on_xml_tag',
+       'patient_name_on_file', 'finding_number', 'study_date_dicom_format',
+       'report_date', 'radiologist_comment', 'organ', 'nodule_type',
+       'lung_laterility', 'lung_quandrant', 'finding_type', 'group_id',
+       'series_instance_uid', 'series_description', 'modality',
+       'study_date_measurement', 'study_instance_uid', 'study_id', 'series_id',
+       'series_number_measurement_level', 'series_number', 'volume', 'area',
+       'shape_compactness', 'min', 'max', 'mean', 'sdev', 'd1', 'd2', 'd1xd2', 'avg_diameter', 'img']
+  trg_format: 'csv'
+
